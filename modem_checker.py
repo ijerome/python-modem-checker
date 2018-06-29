@@ -28,13 +28,11 @@ net_connect = ConnectHandler(**modempool)
 for line in pots_lines:
     config_commands = ['modem1', 'atdt 1' + line] # Commands to dial to the modem
     output = net_connect.send_config_set(config_commands) # Dial out to destination modem
-    time.sleep(30) # A delay of 30 seconds to wait for a response from the destination modem
+    
+    
+    #<After sending config_commands, a delay of 30 seconds is needed to wait for the modem to respond appropriately.>
 
-    if output:
-        net_connect.read_until("CONNECT") # Not sure if this is how to read_until in Netmiko
-        print(output) # Prints the prompt of successful OOB connections
-    else:
-        print('Connection failed.\n')
-        <input keystrokes here: ctrl+shift+6 then x> # Needed to input keystores for break sequence
-        break_commands = ['disco', 'exit']
-        break = net_connect.send_config_set(break_commands) # Exits out of the router (modempool)
+    
+    #<Followed by a conditional logic code block: (1) script to read until the word "CONNECT" then print the output and continue loop>;
+    #(2) print "Connection failed to <POTS line>." if the modem does not return any output and continue loop>;
+    #(3) At the last item in the loop, disconnect and exit out from the modempool router.>
